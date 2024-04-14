@@ -43,6 +43,7 @@ def count_letters_v2(input_string):
             result[pismeno] = 1
     return result
 
+# Ukol - najdi nejcastejsi a nejmene caste pismeno v textu
 def najdi_minimum(slovnik):
     min_znak = None
     minimum = None
@@ -69,15 +70,58 @@ def najdi_maximum(slovnik):
             maximum = slovnik[znak]
     return max_znak
 
+def count_sequence(input_string, seq_len=2):
+    result = {}
+    for i in range(len(input_string)-seq_len+1):
+        pismena = input_string[i:i+seq_len]
+        if pismena in result:
+            continue
+        pocet = input_string.count(pismena)
+        result[pismena] = pocet
+    return result
+
+def count_sequence_v2(input_string, seq_len=2):
+    result = {}
+    for i in range(len(input_string)-seq_len+1):
+        pismena = input_string[i:i+seq_len]
+        if pismena in result:
+            result[pismena] += 1
+        else:
+            result[pismena] = 1
+    return result
+
+retezec = vygeneruj_retezec(100_000)
+# retezec = read_bible_lines(10_000)
+
 start = time()
-retezec = vygeneruj_retezec(10000)
-# retezec = read_bible_lines(10000)
-# print(retezec)
-# pocty_znaku = count_letters(retezec)
-pocty_znaku = count_letters_v2(retezec)
+
+## Pro jeden znak obě funkce fungují stehně rychle
+# pocty_znaku = count_letters(retezec) # 0.06
+# pocty_znaku = count_letters_v2(retezec) # 0.09
+
+## Pro nahodny retezec delky 100_000 znaku
+# pocty_znaku = count_sequence(retezec, seq_len=1) # 0.01097 sekund
+# pocty_znaku = count_sequence(retezec, seq_len=2) # 0.19947 sekund
+# pocty_znaku = count_sequence(retezec, seq_len=3) # 3.62308 sekund
+
+# pocty_znaku = count_sequence_v2(retezec, seq_len=1) # 0.01495 sekund
+# pocty_znaku = count_sequence_v2(retezec, seq_len=2) # 0.02098 sekund
+pocty_znaku = count_sequence_v2(retezec, seq_len=3) # 0.02194 sekund
+
+## Pro retezec z textu, delka retezce je 10_000 znaku
+# pocty_znaku = count_sequence(retezec, seq_len=1) # 0.14462 sekund
+# pocty_znaku = count_sequence(retezec, seq_len=2) # 0.90356 sekund
+# pocty_znaku = count_sequence(retezec, seq_len=3) # 5.88227 sekund
+
+# pocty_znaku = count_sequence_v2(retezec, seq_len=1) # 0.1975 sekund
+# pocty_znaku = count_sequence_v2(retezec, seq_len=2) # 0.24734 sekund
+# pocty_znaku = count_sequence_v2(retezec, seq_len=3) # 0.25332 sekund
+
 print(pocty_znaku)
-print('Nejmene caste pismeno:', najdi_minimum(pocty_znaku))
-print('Nejcastejsi pismeno:', najdi_maximum(pocty_znaku))
+
 stop = time()
 celkovy_cas = round(stop - start, 5)
 print(celkovy_cas, 'sekund')
+
+print('Nejmene caste pismeno:', najdi_minimum(pocty_znaku))
+print('Nejcastejsi pismeno:', najdi_maximum(pocty_znaku))
