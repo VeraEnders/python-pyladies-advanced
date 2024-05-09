@@ -108,7 +108,7 @@ start = time()
 # pocty_znaku = count_sequence_v2(retezec, seq_len=2) # 0.02098 sekund
 pocty_znaku = count_sequence_v2(retezec, seq_len=3) # 0.02194 sekund
 
-## Pro retezec z textu, delka retezce je 10_000 znaku
+## Pro retezec z textu, delka retezce je cca 1_200_000 znaku
 # pocty_znaku = count_sequence(retezec, seq_len=1) # 0.14462 sekund
 # pocty_znaku = count_sequence(retezec, seq_len=2) # 0.90356 sekund
 # pocty_znaku = count_sequence(retezec, seq_len=3) # 5.88227 sekund
